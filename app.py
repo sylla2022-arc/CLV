@@ -751,7 +751,7 @@ afin de les inciter à rejoindre la classe des clients "Premium".
                     """)
     
     elif pages == "Conclusion":
-        if st.checkbox('Sunthése'):
+        if st.checkbox('Synthése'):
             st.markdown("""
 Dans le cadre de ce projet, nous avons exploré et analysé plusieurs concepts et modèles pour mieux comprendre et prédire le comportement 
 des clients. Voici quelques vocabulaires clés et leurs définitions, qui seront récurrents et indispensables pour la suite de nos travaux :
