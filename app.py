@@ -756,12 +756,10 @@ afin de les inciter à rejoindre la classe des clients "Premium".
 Dans le cadre de ce projet, nous avons exploré et analysé plusieurs concepts et modèles pour mieux comprendre et prédire le comportement 
 des clients. Voici quelques vocabulaires clés et leurs définitions, qui seront récurrents et indispensables pour la suite de nos travaux :
 
-**Frequency**: Le nombre d'achats effectués par un client sur une période donnée. Cela nous aide à identifier les clients les plus actifs.
-
+**Frequency**: Le nombre d'achats effectués par un client sur une période donnée. Cela nous aide à identifier les clients les plus actifs.   
 **Recency** : Le nombre de jours écoulés depuis le dernier achat d'un client. Ce critère est crucial pour déterminer à quel point un client 
-            est récent et potentiellement actif.
-
-**T** : La durée totale d'observation pour chaque client, c'est-à-dire le temps pendant lequel nous avons suivi leurs comportements d'achat.
+            est récent et potentiellement actif.  
+**T** : La durée totale d'observation pour chaque client, c'est-à-dire le temps pendant lequel nous avons suivi leurs comportements d'achat.  
                         
 Ces termes sont fondamentaux pour l'analyse RFM (Récence, Fréquence, Valeur Monétaire) et pour les modèles de prévision de la valeur
 à vie des clients (CLV). Nous ferons souvent appel à eux pour segmenter les clients, prévoir leurs comportements futurs et élaborer 
@@ -769,34 +767,32 @@ des stratégies de fidélisation adaptées.
 
 Voici les étapes principales et les concepts développés dans ce projet :  
 
-**Analyse Exploratoire des Données (EDA)** :  
-
+**Analyse Exploratoire des Données (EDA)** :     
 Nous avons commencé par explorer les données pour comprendre la distribution et les caractéristiques des clients.
 Utilisation des visualisations pour identifier les tendances et les anomalies dans les données.
-Modélisation de la Probabilité de Survie des Clients :
 
+**Modélisation de la Probabilité de Survie des Clients** :  
 Application des modèles ParetoNBDFitter et BetaGeoFitter pour calculer la probabilité qu'un client soit toujours actif.
 Prédiction de la probabilité de transactions futures et de la valeur monétaire des transactions.
                         
-**Calcul du Customer Lifetime Value (CLV)** :    
-
+**Calcul du Customer Lifetime Value (CLV)** :      
 Prédiction du CLV brut en utilisant les modèles de survie et de valeur monétaire.
 Conversion du CLV brut en CLV net en appliquant une marge de profit.
-                        
-**Segmentation des Clients** :   
 
+                        
+**Segmentation des Clients** :     
 Utilisation de l'algorithme K-means pour segmenter les clients en fonction de leurs comportements d'achat.
 Evaluation du nombre optimal de clusters à l'aide de la méthode du coude, du coefficient de silhouette et du score de Calinski-Harabash.
+
                         
 **Visualisation et Analyse des Clusters** :  
-
 Visualisation des clusters avec des diagrammes en radar, boîtes à moustaches et diagrammes de dispersion pour mieux comprendre 
 les caractéristiques de chaque segment.
 Analyse textuelle des clusters pour interpréter les comportements et recommander des actions marketing spécifiques pour chaque segment.
+
                         
 **Recommandations Stratégiques** : 
-  
-Propositions de stratégies marketing basées sur les caractéristiques des clusters identifiés.
+  Propositions de stratégies marketing basées sur les caractéristiques des clusters identifiés.
 Importance de cibler les clients les plus précieux avec des offres personnalisées et des programmes de fidélité.
 En synthèse, la compréhension et l'utilisation de ces concepts et techniques nous permettent de prendre des décisions éclairées et 
 d'optimiser nos efforts marketing pour maximiser la satisfaction et la valeur des clients. Nous continuerons à affiner
