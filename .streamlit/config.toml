@@ -1,0 +1,3 @@
+[server]
+folderWatchBlacklist = ["some_large_directory", "another_directory"]
+runOnSave = false
