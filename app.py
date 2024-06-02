@@ -620,7 +620,7 @@ On peut donc en déduire que le modèle s'est plutôt adapté aux données.]
             # Initialisation des colonnes
             col1, col2 = st.columns(2)
 
-            progress_bar = st.progress(0)
+            #progress_bar = st.progress(0)
             for i in tqdm(range(1, 3)) :# , st_container=st.sidebar):
                 # Création du graphique avec Plotly Express
                 plotly_fig = px.box(
@@ -630,7 +630,7 @@ On peut donc en déduire que le modèle s'est plutôt adapté aux données.]
                     height=400,
                     width=350)
                 
-                progress_bar.progress((i + 1) / len(df_var))
+                #progress_bar.progress((i + 1) / len(df_var))
 
                 plotly_fig.update_layout(title_x=0.2)
                 # Affichage du graphique dans la colonne appropriée
