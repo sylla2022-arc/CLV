@@ -28,6 +28,32 @@ import time
 import requests
 
 
+# URL de votre application Streamlit
+url = "https://appclv.streamlit.app/"
+
+def keep_alive():
+    while True:
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                print("Ping successful")
+            else:
+                print(f"Ping failed with status code: {response.status_code}")
+        except requests.RequestException as e:
+            print(f"Ping failed: {e}")
+        
+        # Ping toutes les 15 minutes
+        time.sleep(900)
+
+# Lancer le thread de maintien en activité
+keep_alive_thread = threading.Thread(target=keep_alive)
+keep_alive_thread.daemon = True
+keep_alive_thread.start()
+
+# Contenu de votre application Streamlit
+st.title("Mon Application Streamlit")
+st.write("Ceci est ma superbe application Streamlit.")
+
 # Chargement des données
 df = pd.read_excel('SuperMarket_Transaction_Data.xlsx')
 #Partie segmention
@@ -812,37 +838,7 @@ Importance de cibler les clients les plus précieux avec des offres personnalis�
 En synthèse, la compréhension et l'utilisation de ces concepts et techniques nous permettent de prendre des décisions éclairées et 
 d'optimiser nos efforts marketing pour maximiser la satisfaction et la valeur des clients. Nous continuerons à affiner
 nos modèles et nos stratégies pour améliorer continuellement notre approche.
-
             """)
-
-
-#import streamlit as st
-
-# URL de votre application Streamlit
-url = "https://appclv.streamlit.app/"
-
-def keep_alive():
-    while True:
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
-                print("Ping successful")
-            else:
-                print(f"Ping failed with status code: {response.status_code}")
-        except requests.RequestException as e:
-            print(f"Ping failed: {e}")
-        
-        # Ping toutes les 15 minutes
-        time.sleep(900)
-
-# Lancer le thread de maintien en activité
-keep_alive_thread = threading.Thread(target=keep_alive)
-keep_alive_thread.daemon = True
-keep_alive_thread.start()
-
-# Contenu de votre application Streamlit
-st.title("Mon Application Streamlit")
-st.write("Ceci est ma superbe application Streamlit.")
 
 if __name__ == '__main__':
     main()
