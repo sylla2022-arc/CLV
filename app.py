@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
-#from tqdm import tqdm
+from tqdm import tqdm
 from stqdm import stqdm
 import time
 import lifetimes as lt
@@ -22,6 +22,11 @@ from yellowbrick.cluster import InterclusterDistance
 from sklearn.pipeline import Pipeline
 import plotly.express as px
 import plotly.graph_objects as go
+#import keep_alive_app
+import threading
+import time
+import requests
+
 
 # Chargement des données
 df = pd.read_excel('SuperMarket_Transaction_Data.xlsx')
@@ -91,8 +96,9 @@ def plot_dispersion_diagram(X):
     # Initialisation des colonnes
     col1, col2 = st.columns(2)
 
- 
-    for i, col in enumerate(stqdm(df_var, st_container=st.sidebar)):
+    progress_bar = st.progress(0)
+
+    for i, col in enumerate(tqdm(df_var)): # , st_container=st.sidebar)):
         # Création du graphique avec Plotly Express
         plotly_fig = px.scatter(
             X,
@@ -103,7 +109,9 @@ def plot_dispersion_diagram(X):
             color  = X['Cluster'].map({0:'Cluster 0', 1:'Cluster 1', 2:' Cluster 2'}),
             height=450,
             width=400)
-  
+        
+        progress_bar.progress((i + 1) / len(df_var))
+
         plotly_fig.update_layout(legend=dict(
         orientation="h",
         yanchor="bottom",
@@ -201,8 +209,9 @@ def plot_density_diagram(X) :
     
     # Initialisation des colonnes
     col1, col2 = st.columns(2)
-    
-    for i, col in enumerate(stqdm(df_var, st_container=st.sidebar)):
+
+    progress_bar = st.progress(0)
+    for i, col in enumerate(tqdm(df_var)) : #, st_container=st.sidebar)):
         # Création du graphique avec Plotly Express
         density_fig = px.histogram(
             X,
@@ -215,7 +224,8 @@ def plot_density_diagram(X) :
             height=400,
             width = 408
             )
-        
+        progress_bar.progress((i + 1) / len(df_var))
+
         density_fig.update_layout(title_x=0.2)
         # Affichage du graphique dans la colonne appropriée
         if i % 2 == 0:
@@ -230,7 +240,7 @@ def boxplot_diagram(X):
     # Initialisation des colonnes
     col1, col2 = st.columns(2)
   
-    
+    progress_bar = st.progress(0)
     for i, col in enumerate(stqdm(df_var, st_container=st.sidebar)):
         # Création du graphique avec Plotly Express
         plotly_fig = px.box(
@@ -243,7 +253,8 @@ def boxplot_diagram(X):
             
             height=400,
             width=350)
-        
+        progress_bar.progress((i + 1) / len(df_var))
+
         plotly_fig.update_layout(title_x=0.2)
         # Affichage du graphique dans la colonne appropriée
         if i % 2 == 0:
@@ -253,7 +264,7 @@ def boxplot_diagram(X):
 
 def distorsion_plot():
     distorsion = []
-    for i in stqdm(range(1,8), st_container=st.sidebar) :
+    for i in range(1,8) : # , st_container=st.sidebar) :
         km = KMeans(n_clusters = i, random_state = 0).fit(X)
         distorsion.append(km.inertia_)
 
@@ -541,8 +552,8 @@ client à l'aide du modèle :blue[GammaGammaFitter] de la librairie lifetimes.]
                 # Initialisation des colonnes
                 col1, col2 = st.columns(2)
             
-                
-                for i, col in enumerate(stqdm(df_var, st_container=st.sidebar)):  
+                progress_bar = st.progress(0)
+                for i, col in enumerate(tqdm(df_var)): # , st_container=st.sidebar)):  
                     # Création du graphique avec Plotly Express
                     plotly_fig = px.scatter(
                         df_cvl,
@@ -554,7 +565,8 @@ client à l'aide du modèle :blue[GammaGammaFitter] de la librairie lifetimes.]
                         
                         height=400,
                         width=350)
-                    
+                    progress_bar.progress((i + 1) / len(df_var))
+
                     plotly_fig.update_layout(title_x=0.2)
                     # Affichage du graphique dans la colonne appropriée
                     if i % 2 == 0:
@@ -581,8 +593,9 @@ On peut donc en déduire que le modèle s'est plutôt adapté aux données.]
         if st.checkbox("Calculer les statistiques et visualiser le boxplot"):
             # Initialisation des colonnes
             col1, col2 = st.columns(2)
-        
-            for i in stqdm(range(1, 3), st_container=st.sidebar):
+
+            progress_bar = st.progress(0)
+            for i in tqdm(range(1, 3)) :# , st_container=st.sidebar):
                 # Création du graphique avec Plotly Express
                 plotly_fig = px.box(
                     df_cvl,
@@ -591,6 +604,8 @@ On peut donc en déduire que le modèle s'est plutôt adapté aux données.]
                     height=400,
                     width=350)
                 
+                progress_bar.progress((i + 1) / len(df_var))
+
                 plotly_fig.update_layout(title_x=0.2)
                 # Affichage du graphique dans la colonne appropriée
                 if i % 2 == 0:
@@ -799,6 +814,35 @@ d'optimiser nos efforts marketing pour maximiser la satisfaction et la valeur de
 nos modèles et nos stratégies pour améliorer continuellement notre approche.
 
             """)
+
+
+#import streamlit as st
+
+# URL de votre application Streamlit
+url = "https://appclv.streamlit.app/"
+
+def keep_alive():
+    while True:
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                print("Ping successful")
+            else:
+                print(f"Ping failed with status code: {response.status_code}")
+        except requests.RequestException as e:
+            print(f"Ping failed: {e}")
+        
+        # Ping toutes les 15 minutes
+        time.sleep(900)
+
+# Lancer le thread de maintien en activité
+keep_alive_thread = threading.Thread(target=keep_alive)
+keep_alive_thread.daemon = True
+keep_alive_thread.start()
+
+# Contenu de votre application Streamlit
+st.title("Mon Application Streamlit")
+st.write("Ceci est ma superbe application Streamlit.")
 
 if __name__ == '__main__':
     main()
