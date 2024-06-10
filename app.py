@@ -58,6 +58,8 @@ st.write("Ceci est ma superbe application Streamlit.")
 df = pd.read_excel('SuperMarket_Transaction_Data.xlsx')
 #Partie segmention
 X = pd.read_csv('data_segmentation.csv')
+x_copie = X.copy()
+
 preprocessor = ColumnTransformer( [('scaler', StandardScaler(), 
                                      X.columns.tolist())
                                   ])
@@ -656,8 +658,8 @@ la distance intra-cluster (« distorsion ») va diminuer. En effet, les échanti
 * **Inertie** : C’est la somme des distances au carré des échantillons par rapport à leur centre de cluster le plus proche.
         """)
         if st.checkbox('Afficher le dataset pour la segmentation') :
-            st.dataframe(X.head(3))
-            st.write(f":red[Dimmension :{X.shape}]")
+            st.dataframe(x_copie.head(3))
+            st.write(f":red[Dimmension :{x_copie.shape}]")
         if st.checkbox('Visualiser la courbe de torsion'):
             distorsion_plot()
         if st.checkbox("Notion de coefficient de silhouette") :
