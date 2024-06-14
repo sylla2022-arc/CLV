@@ -42,8 +42,8 @@ def keep_alive():
         except requests.RequestException as e:
             print(f"Ping failed: {e}")
         
-        # Ping toutes les 15 minutes
-        time.sleep(900)
+        # Ping toutes les 1h
+        time.sleep(3600)
 
 # Lancer le thread de maintien en activité
 keep_alive_thread = threading.Thread(target=keep_alive)
